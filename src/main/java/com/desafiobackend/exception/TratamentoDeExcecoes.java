@@ -10,6 +10,11 @@ public class TratamentoDeExcecoes {
 
     @ExceptionHandler(SetorDuplicadoException.class)
     public ResponseEntity<String> setorComNomeDuplicado() {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do setor fornecido existente");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do setor fornecido duplicado");
+    }
+
+    @ExceptionHandler(DadoNaoEncontradoException.class)
+    public ResponseEntity<String> dadoNaoEncontrado(DadoNaoEncontradoException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMsg());
     }
 }

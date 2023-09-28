@@ -1,5 +1,6 @@
 package com.desafiobackend.service;
 
+import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.exception.SetorDuplicadoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
@@ -26,13 +27,13 @@ public class SetorService {
     }
 
     public Setor findById(Long idSetor) {
-        Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new NoSuchElementException());
+        Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new DadoNaoEncontradoException("Setor com o ID " + idSetor + " não existente"));
         return setor;
     }
 
     public Setor save(DadosCadastraSetorDTO dadosCadastraSetorDTO) {
         if (setorRepository.existsByNomeSetor(dadosCadastraSetorDTO.getNomeSetor())) {
-            throw new SetorDuplicadoException("Setor com o mesmo nome já existe.");
+            throw new SetorDuplicadoException();
         }
 
         Setor setor = new Setor(dadosCadastraSetorDTO);
@@ -49,22 +50,20 @@ public class SetorService {
     }
 
     public Setor update(DadosAtualizaSetorDTO dadosAtualizaSetor, Long idSetor) {
-        Setor setor = new Setor(dadosAtualizaSetor);
+        if (setorRepository.existsByNomeSetor(dadosAtualizaSetor.getNomeSetor())) {
+            throw new SetorDuplicadoException();
+        }
+
+        Setor setorEncontrado = setorRepository.findById(idSetor).orElseThrow(() -> new DadoNaoEncontradoException("Setor com o ID " + idSetor + " não existente"));
+
+        Setor setor = new Setor(dadosAtualizaSetor, setorEncontrado);
         setorRepository.save(setor);
         return setor;
     }
 
-    public Setor deleteCargo(Long idSetor, Long idCargo) {
-        Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new NoSuchElementException());
-        Cargo cargo = cargoRepository.findById(idCargo).orElseThrow(() -> new NoSuchElementException());
-
-        if (!setor.getCargos().contains(cargo)) {
-            throw new NoSuchElementException("O cargo não pertence ao setor especificado.");
-        }
-
-        setor.getCargos().remove(cargo);
-        setorRepository.save(setor);
-
+    public Setor delete(Long idSetor) {
+        Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new DadoNaoEncontradoException("Setor com o ID " + idSetor + " não existente"));
+        setorRepository.delete(setor);
         return setor;
     }
 }

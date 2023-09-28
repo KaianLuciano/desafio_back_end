@@ -42,7 +42,7 @@ public class SetorController {
         return ResponseEntity.ok().body(setorService.update(dadosAtualizaSetorDTO, idSetor));
     }
 
-    @Operation(summary = "")
+    @Operation(summary = "Deleta o cargo que representa o idCargo, do setor que representa idSetor")
     @DeleteMapping("/{idSetor}/{idCargo}")
     public ResponseEntity<Setor> deleteCargos(@PathVariable(value = "idSetor") Long idSetor, @PathVariable(value = "idCargo") Long idCargo) {
         return ResponseEntity.ok().body(setorService.deleteCargo(idSetor, idCargo));

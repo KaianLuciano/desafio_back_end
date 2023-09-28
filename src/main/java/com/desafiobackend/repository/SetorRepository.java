@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SetorReporsitory extends JpaRepository<Setor, Long> {
+public interface SetorRepository extends JpaRepository<Setor, Long> {
+    boolean existsByNomeSetor(String nomeSetor);
 }

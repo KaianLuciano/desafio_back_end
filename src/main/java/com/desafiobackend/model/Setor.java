@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "setor")
@@ -19,7 +18,6 @@ public class Setor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String nomeSetor;
     @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
     private List<Cargo> cargos;
@@ -39,6 +37,5 @@ public class Setor {
 
     public Setor(DadosCadastraSetorDTO dadosAtualizaSetorDTO) {
         this.nomeSetor = dadosAtualizaSetorDTO.getNomeSetor();
-        this.cargos = dadosAtualizaSetorDTO.getCargos().stream().map(cargo -> new Cargo(cargo)).collect(Collectors.toList());
     }
 }

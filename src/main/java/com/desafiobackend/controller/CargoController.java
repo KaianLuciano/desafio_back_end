@@ -6,7 +6,6 @@ import com.desafiobackend.model.dto.DadosAtualizaCargoDTO;
 import com.desafiobackend.model.dto.DadosCadastroCargoDTO;
 import com.desafiobackend.service.CargoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

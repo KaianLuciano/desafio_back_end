@@ -1,19 +1,20 @@
 package com.desafiobackend.service;
 
+import com.desafiobackend.exception.CargoDuplicadoException;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.exception.SetorDuplicadoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
 import com.desafiobackend.model.dto.DadosAtualizaSetorDTO;
 import com.desafiobackend.model.dto.DadosCadastraSetorDTO;
+import com.desafiobackend.model.dto.DadosCadastroCargoDTO;
 import com.desafiobackend.repository.CargoRepository;
 import com.desafiobackend.repository.SetorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -32,21 +33,25 @@ public class SetorService {
     }
 
     public Setor save(DadosCadastraSetorDTO dadosCadastraSetorDTO) {
-        if (setorRepository.existsByNomeSetor(dadosCadastraSetorDTO.getNomeSetor())) {
-            throw new SetorDuplicadoException();
-        }
+        if (setorRepository.existsByNomeSetor(dadosCadastraSetorDTO.getNomeSetor())) {throw new SetorDuplicadoException();}
+
+        dadosCadastraSetorDTO.getCargos().stream().forEach(cargo -> {
+            if(cargoRepository.existsByNomeCargo(cargo.getNomeCargo())) {throw new CargoDuplicadoException();}
+        });
 
         Setor setor = new Setor(dadosCadastraSetorDTO);
-        List<Cargo> cargos = dadosCadastraSetorDTO.getCargos().stream()
-                .map(dadosCadastroCargoDTO -> new Cargo(dadosCadastroCargoDTO)).collect(Collectors.toList());
 
-        setorRepository.save(setor);
-        cargos.stream().forEach(cargo -> cargo.setSetor(setor));
-        cargoRepository.saveAll(cargos);
+        List<Cargo> cargos = new ArrayList<>();
+        for(DadosCadastroCargoDTO dadosCadastroCargoDTO :dadosCadastraSetorDTO.getCargos()) {
+            if(dadosCadastroCargoDTO.getNomeCargo() != "") {
+                cargos.add(new Cargo(dadosCadastroCargoDTO));
+            }
+        }
+
         setor.setCargos(cargos);
-        setorRepository.save(setor);
+        Setor setorSalvo = setorRepository.save(setor);
 
-        return setor;
+        return setorSalvo;
     }
 
     public Setor update(DadosAtualizaSetorDTO dadosAtualizaSetor, Long idSetor) {

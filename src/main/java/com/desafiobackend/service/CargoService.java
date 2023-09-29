@@ -1,5 +1,6 @@
 package com.desafiobackend.service;
 
+import com.desafiobackend.exception.CargoDuplicadoException;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
@@ -30,14 +31,17 @@ public class CargoService {
     }
 
     public Cargo save(DadosCadastroCargoDTO dadosCadastroCargoDTO, Long idSetor) {
+        if(cargoRepository.existsByNomeCargo(dadosCadastroCargoDTO.getNomeCargo())) {
+            throw new CargoDuplicadoException();
+        }
+
         Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new DadoNaoEncontradoException("Setor com o ID " + idSetor + " não existente"));
         Cargo cargo = new Cargo(dadosCadastroCargoDTO);
 
-        cargoRepository.save(cargo);
-        setor.getCargos().add(cargo);
-        setorRepository.save(setor);
+        cargo.setSetor(setor);
+        Cargo cargoSalvo = cargoRepository.save(cargo);
 
-        return cargo;
+        return cargoSalvo;
     }
 
     public Cargo update(Long idCargo, DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
@@ -63,4 +67,5 @@ public class CargoService {
 
         return setor;
     }
+
 }

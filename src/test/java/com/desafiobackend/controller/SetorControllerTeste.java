@@ -145,6 +145,18 @@ public class SetorControllerTeste {
     }
 
     @Test
+    void updateSetorDuplicadoExceptionTeste() throws Exception {
+        Mockito.when(setorRepository.existsByNomeSetor("Nome Atualizado")).thenReturn(true);
+
+        mockMvc.perform(put("/setor/{idSetor}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(new DadosAtualizaSetorDTO("Nome Atualizado")))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isConflict());
+    }
+
+    @Test
     void updateNotFoundTeste() throws Exception {
         Mockito.when(setorRepository.findById(1L)).thenReturn(Optional.empty());
 

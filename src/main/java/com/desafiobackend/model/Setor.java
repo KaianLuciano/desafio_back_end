@@ -28,10 +28,6 @@ public class Setor {
         this.cargos = setor.getCargos();
     }
 
-    public Setor(DadosAtualizaSetorDTO cadastroSetorDto) {
-        this.nomeSetor = cadastroSetorDto.getNomeSetor();
-    }
-
     public Setor(DadosCadastraSetorDTO dadosAtualizaSetorDTO) {
         this.nomeSetor = dadosAtualizaSetorDTO.getNomeSetor();
     }

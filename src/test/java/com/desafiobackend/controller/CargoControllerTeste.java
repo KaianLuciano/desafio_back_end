@@ -177,6 +177,17 @@ public class CargoControllerTeste {
     }
 
     @Test
+    void deleteSetorNaoPossuiCargoExceptionTeste() throws Exception {
+        when(cargoRepository.findById(1L)).thenReturn(Optional.of(cargo));
+        setor.setCargos(List.of(new Cargo(1L, "Nome Diferente")));
+        when(setorRepository.findById(1L)).thenReturn(Optional.of(setor));
+
+        mockMvc.perform(delete("/cargo/{idSetor}/{idCargo}", 1L, 1L))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void deleteNotFoundCargoTeste() throws Exception {
         when(cargoRepository.findById(1L)).thenReturn(Optional.empty());
 

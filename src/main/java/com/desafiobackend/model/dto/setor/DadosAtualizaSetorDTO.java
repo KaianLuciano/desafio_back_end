@@ -1,6 +1,5 @@
 package com.desafiobackend.model.dto.setor;
 
-import com.desafiobackend.model.Setor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,4 @@ public class DadosAtualizaSetorDTO {
 
     private String nomeSetor;
 
-    public Setor transformarParaSetor(DadosAtualizaSetorDTO dadosAtualizaSetorDTO) {
-        return new Setor(dadosAtualizaSetorDTO);
-    }
 }

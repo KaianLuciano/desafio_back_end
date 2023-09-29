@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Table(name = "cargo")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Cargo {
 

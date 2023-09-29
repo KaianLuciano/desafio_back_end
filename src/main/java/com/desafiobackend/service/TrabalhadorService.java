@@ -8,7 +8,6 @@ import com.desafiobackend.model.dto.trabalhador.DadosAtualizaTrabalhadorDTO;
 import com.desafiobackend.model.dto.trabalhador.DadosCadastroTrabalhadorDTO;
 import com.desafiobackend.model.dto.trabalhador.DadosListagemTrabalhadorDTO;
 import com.desafiobackend.repository.CargoRepository;
-import com.desafiobackend.repository.SetorRepository;
 import com.desafiobackend.repository.TrabalhadorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 public class TrabalhadorService {
 
     private final TrabalhadorRepository trabalhadorRepository;
-    private final SetorRepository setorRepository;
     private final CargoRepository cargoRepository;
 
     public List<DadosListagemTrabalhadorDTO> findAll() {

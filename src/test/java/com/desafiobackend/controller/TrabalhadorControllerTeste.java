@@ -151,6 +151,18 @@ public class TrabalhadorControllerTeste {
     }
 
     @Test
+    void updateCpfDuplicadoExceptionteste() throws Exception {
+        when(trabalhadorRepository.existsByCpf("1233445")).thenReturn(true);
+
+        mockMvc.perform(put("/trabalhador/{idTrabalhador}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(new DadosAtualizaTrabalhadorDTO("Nome Atualizado", "1233445")))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isConflict());
+    }
+
+    @Test
     void updateNotFoundTeste() throws Exception {
         when(trabalhadorRepository.findById(1L)).thenReturn(Optional.empty());
 

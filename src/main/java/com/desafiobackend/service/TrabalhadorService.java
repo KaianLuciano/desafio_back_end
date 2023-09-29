@@ -50,6 +50,7 @@ public class TrabalhadorService {
     }
 
     public DadosListagemTrabalhadorDTO update(Long idTrabalhador, DadosAtualizaTrabalhadorDTO dadosAtualizaTrabalhador) {
+        if(trabalhadorRepository.existsByCpf(dadosAtualizaTrabalhador.getCpf())){throw new CpfDuplicadoException();}
         Trabalhador trabalhador = trabalhadorRepository.findById(idTrabalhador).orElseThrow(() -> new DadoNaoEncontradoException("Trabalhador com o ID " + idTrabalhador + " não existente"));
         Trabalhador trabalhadorSalvo = trabalhadorRepository.save(new Trabalhador(trabalhador, dadosAtualizaTrabalhador));
         return new DadosListagemTrabalhadorDTO(trabalhadorSalvo);

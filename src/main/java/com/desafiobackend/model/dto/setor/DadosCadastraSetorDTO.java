@@ -1,6 +1,7 @@
-package com.desafiobackend.model.dto;
+package com.desafiobackend.model.dto.setor;
 
 import com.desafiobackend.model.Setor;
+import com.desafiobackend.model.dto.cargo.DadosCadastroCargoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

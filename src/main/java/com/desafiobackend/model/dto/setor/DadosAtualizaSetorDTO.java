@@ -1,4 +1,4 @@
-package com.desafiobackend.model.dto;
+package com.desafiobackend.model.dto.setor;
 
 import com.desafiobackend.model.Setor;
 import lombok.AllArgsConstructor;

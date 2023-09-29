@@ -1,7 +1,7 @@
 package com.desafiobackend.model;
 
-import com.desafiobackend.model.dto.DadosAtualizaSetorDTO;
-import com.desafiobackend.model.dto.DadosCadastraSetorDTO;
+import com.desafiobackend.model.dto.setor.DadosAtualizaSetorDTO;
+import com.desafiobackend.model.dto.setor.DadosCadastraSetorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +21,11 @@ public class Setor {
     private String nomeSetor;
     @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
     private List<Cargo> cargos;
-    @OneToMany(mappedBy = "setor", cascade = CascadeType.ALL)
-    private List<Trabalhador> trabalhadores;
 
     public Setor(DadosAtualizaSetorDTO cadastroSetorDto, Setor setor) {
         this.id = setor.getId();
         this.nomeSetor = cadastroSetorDto.getNomeSetor() != null ? cadastroSetorDto.getNomeSetor() : setor.getNomeSetor();
         this.cargos = setor.getCargos();
-        this.trabalhadores = setor.getTrabalhadores();
     }
 
     public Setor(DadosAtualizaSetorDTO cadastroSetorDto) {

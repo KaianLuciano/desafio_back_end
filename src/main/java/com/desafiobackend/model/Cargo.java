@@ -1,7 +1,8 @@
 package com.desafiobackend.model;
 
-import com.desafiobackend.model.dto.DadosAtualizaCargoDTO;
-import com.desafiobackend.model.dto.DadosCadastroCargoDTO;
+import com.desafiobackend.exception.DadoNaoEncontradoException;
+import com.desafiobackend.model.dto.cargo.DadosAtualizaCargoDTO;
+import com.desafiobackend.model.dto.cargo.DadosCadastroCargoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "cargo")
@@ -28,13 +28,13 @@ public class Cargo {
 
     @ManyToOne
     @JoinColumn(name = "id_setor")
-    @JsonIgnore
     private Setor setor;
 
-    @OneToMany(mappedBy = "cargo")
-    private List<Trabalhador> trabalhadores;
+    @OneToOne(mappedBy = "cargo", cascade = CascadeType.ALL)
+    private Trabalhador trabalhador;
 
     public Cargo(DadosCadastroCargoDTO cargo) {
+        if(cargo.getNomeCargo() == ""){throw new DadoNaoEncontradoException("Nome cargo não preenchido");}
         this.nomeCargo = cargo.getNomeCargo();
     }
 

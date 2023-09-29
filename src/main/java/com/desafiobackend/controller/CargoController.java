@@ -2,8 +2,8 @@ package com.desafiobackend.controller;
 
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
-import com.desafiobackend.model.dto.DadosAtualizaCargoDTO;
-import com.desafiobackend.model.dto.DadosCadastroCargoDTO;
+import com.desafiobackend.model.dto.cargo.DadosAtualizaCargoDTO;
+import com.desafiobackend.model.dto.cargo.DadosCadastroCargoDTO;
 import com.desafiobackend.service.CargoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

@@ -2,6 +2,7 @@ package com.desafiobackend.service;
 
 import com.desafiobackend.exception.CargoDuplicadoException;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
+import com.desafiobackend.exception.SetorNaoPossuiCargoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
 import com.desafiobackend.model.dto.cargo.DadosAtualizaCargoDTO;
@@ -13,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,7 +60,7 @@ public class CargoService {
         Cargo cargo = cargoRepository.findById(idCargo).orElseThrow(() -> new DadoNaoEncontradoException("Cargo com o ID " + idCargo + " não existente"));
 
         if (!setor.getCargos().contains(cargo)) {
-            throw new NoSuchElementException("O cargo não pertence ao setor especificado.");
+            throw new SetorNaoPossuiCargoException();
         }
 
         setor.getCargos().remove(cargo);

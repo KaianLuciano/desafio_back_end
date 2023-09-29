@@ -27,4 +27,9 @@ public class TratamentoDeExcecoes {
     public ResponseEntity<String> cpfDuplicado() {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Cpf fornecido já existe na base de dados");
     }
+
+    @ExceptionHandler(SetorNaoPossuiCargoException.class)
+    public ResponseEntity<String> setorNaoPossuiCargo() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cargo correspondente ao idCargo, não existe no setor que representa idSetor");
+    }
 }

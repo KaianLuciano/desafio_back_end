@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class DadosListagemSetorCargoDTO {
+public class DadosListagemCargoSemSetorDTO {
 
     private Long id;
     private String nomeCargo;
 
-    public DadosListagemSetorCargoDTO(Cargo cargo) {
+    public DadosListagemCargoSemSetorDTO(Cargo cargo) {
         this.id = cargo.getId();
         this.nomeCargo = cargo.getNomeCargo();
     }

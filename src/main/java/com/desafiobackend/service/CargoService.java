@@ -34,9 +34,7 @@ public class CargoService {
     }
 
     public DadosListagemCargoDTO save(DadosCadastroCargoDTO dadosCadastroCargoDTO, Long idSetor) {
-        if(cargoRepository.existsByNomeCargo(dadosCadastroCargoDTO.getNomeCargo())) {
-            throw new CargoDuplicadoException();
-        }
+        if(cargoRepository.existsByNomeCargoEqualsIgnoreCase(dadosCadastroCargoDTO.getNomeCargo())) {throw new CargoDuplicadoException();}
 
         Setor setor = setorRepository.findById(idSetor).orElseThrow(() -> new DadoNaoEncontradoException("Setor com o ID " + idSetor + " não existente"));
         Cargo cargo = new Cargo(dadosCadastroCargoDTO);
@@ -48,6 +46,7 @@ public class CargoService {
     }
 
     public DadosListagemCargoDTO update(Long idCargo, DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
+        if(cargoRepository.existsByNomeCargoEqualsIgnoreCase(dadosAtualizaCargoDTO.getNomeCargo())) {throw new CargoDuplicadoException();}
         Cargo cargoEncontrado = cargoRepository.findById(idCargo).orElseThrow(() -> new DadoNaoEncontradoException("Cargo com o ID " + idCargo + " não existente"));
         Cargo cargo = new Cargo(cargoEncontrado, dadosAtualizaCargoDTO);
 

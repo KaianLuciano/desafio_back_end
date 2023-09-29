@@ -26,13 +26,13 @@ public class CargoController {
         return ResponseEntity.ok().body(cargoService.findAll());
     }
 
-    @Operation(summary = "Procura o cargo que representa o id fornecido")
+    @Operation(summary = "Procura o cargo que representa o ID fornecido")
     @GetMapping("/{idCargo}")
     public ResponseEntity<DadosListagemCargoDTO> findById(@PathVariable(value = "idCargo") Long idCargo) {
         return ResponseEntity.ok().body(cargoService.findById(idCargo));
     }
 
-    @Operation(summary = "Salva o cargo no setor que representa o ID fornecido")
+    @Operation(summary = "Salva o cargo e atrela o mesmo ao setor que representa o ID fornecido")
     @PostMapping("/{idSetor}")
     public ResponseEntity<DadosListagemCargoDTO> save(@PathVariable(value = "idSetor") Long idSetor, @RequestBody DadosCadastroCargoDTO dadosCadastroCargoDTO) {
         return ResponseEntity.ok().body(cargoService.save(dadosCadastroCargoDTO, idSetor));
@@ -40,11 +40,11 @@ public class CargoController {
 
     @Operation(summary = "Atualiza o cargo que representa o ID fornecido")
     @PutMapping("/{idCargo}")
-    public ResponseEntity<DadosListagemCargoDTO> update(@PathVariable(value = "idCargo") Long idCargo, DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
+    public ResponseEntity<DadosListagemCargoDTO> update(@PathVariable(value = "idCargo") Long idCargo, @RequestBody DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
         return ResponseEntity.ok().body(cargoService.update(idCargo, dadosAtualizaCargoDTO));
     }
 
-    @Operation(summary = "Deleta o cargo que representa o idCargo, do setor que representa idSetor")
+    @Operation(summary = "Deleta o cargo que representa o idCargo fornecido do setor que representa idSetor fornecido")
     @DeleteMapping("/{idSetor}/{idCargo}")
     public ResponseEntity<DadosListagemCargoDTO> deleteCargo(@PathVariable(value = "idSetor") Long idSetor, @PathVariable(value = "idCargo") Long idCargo) {
         return ResponseEntity.ok().body(cargoService.deleteCargo(idSetor, idCargo));

@@ -26,13 +26,13 @@ public class TrabalhadorController {
         return ResponseEntity.ok().body(trabalhadorService.findAll());
     }
 
-    @Operation(summary = "Procura o trabalhador que representa o id fornecido")
+    @Operation(summary = "Procura o trabalhador que representa o ID fornecido")
     @GetMapping("/{idTrabalhador}")
     public ResponseEntity<DadosListagemTrabalhadorDTO> findById(@PathVariable(value = "idTrabalhador") Long idTrabalhador) {
         return ResponseEntity.ok().body(trabalhadorService.findById(idTrabalhador));
     }
 
-    @Operation(summary = "Salva o trabalhador e atrela ao cargo que correponde ao ID fornecido.")
+    @Operation(summary = "Salva o trabalhador e atrela o mesmo ao cargo que correponde ao ID fornecido.")
     @PostMapping("/{idCargo}")
     public ResponseEntity<DadosListagemTrabalhadorDTO> save(@PathVariable(value = "idCargo") Long idCargo, @RequestBody DadosCadastroTrabalhadorDTO dadosCadastroTrabalhadorDTO) {
         return ResponseEntity.ok().body(trabalhadorService.save(idCargo, dadosCadastroTrabalhadorDTO));

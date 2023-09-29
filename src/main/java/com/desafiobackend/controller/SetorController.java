@@ -26,13 +26,13 @@ public class SetorController {
         return ResponseEntity.ok().body(setorService.findAll());
     }
 
-    @Operation(summary = "Procura o setor que representa o id fornecido")
+    @Operation(summary = "Procura o setor que representa o ID fornecido")
     @GetMapping("/{idSetor}")
     public ResponseEntity<DadosListagemSetorDTO> findById(@PathVariable(value = "idSetor") Long idSetor) {
         return ResponseEntity.ok().body(setorService.findById(idSetor));
     }
 
-    @Operation(summary = "Salva o setor fornecido")
+    @Operation(summary = "Salva o setor juntamente com os cargos fornecidos")
     @PostMapping
     public ResponseEntity<DadosListagemSetorDTO> save(@RequestBody DadosCadastraSetorDTO dadosCadastraSetorDTO) {
         return ResponseEntity.ok().body(setorService.save(dadosCadastraSetorDTO));
@@ -44,7 +44,7 @@ public class SetorController {
         return ResponseEntity.ok().body(setorService.update(dadosAtualizaSetorDTO, idSetor));
     }
 
-    @Operation(summary = "Deleta o setor que representa o id fornecido")
+    @Operation(summary = "Deleta o setor que representa o ID fornecido")
     @DeleteMapping("/{idSetor}/{idCargo}")
     public ResponseEntity<DadosListagemSetorDTO> delete(@PathVariable(value = "idSetor") Long idSetor) {
         return ResponseEntity.ok().body(setorService.delete(idSetor));

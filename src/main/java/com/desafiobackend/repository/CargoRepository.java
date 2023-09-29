@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Long> {
 
-    boolean existsByNomeCargo(String nomeCargo);
+    boolean existsByNomeCargoEqualsIgnoreCase(String nomeCargo);
 }

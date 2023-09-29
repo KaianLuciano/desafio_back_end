@@ -38,6 +38,9 @@ public class Cargo {
     }
 
     public Cargo(Cargo cargo, DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
+        this.id = cargo.getId();
         this.nomeCargo = dadosAtualizaCargoDTO.getNomeCargo() != null ? dadosAtualizaCargoDTO.getNomeCargo() : cargo.getNomeCargo();
+        this.setor = cargo.getSetor();
+        this.trabalhador = cargo.getTrabalhador();
     }
 }

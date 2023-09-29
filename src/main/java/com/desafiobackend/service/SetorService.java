@@ -38,7 +38,7 @@ public class SetorService {
             throw new SetorDuplicadoException();
         }
         dadosCadastraSetorDTO.getCargos().stream().forEach(cargo -> {
-            if(cargoRepository.existsByNomeCargo(cargo.getNomeCargo())) {throw new CargoDuplicadoException();}
+            if(cargoRepository.existsByNomeCargoEqualsIgnoreCase(cargo.getNomeCargo())) {throw new CargoDuplicadoException();}
         });
 
         Setor setor = new Setor(dadosCadastraSetorDTO);

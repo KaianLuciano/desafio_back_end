@@ -162,4 +162,43 @@ public class TrabalhadorControllerTeste {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void deleteTeste() throws Exception {
+        when(cargoRepository.findById(1L)).thenReturn(Optional.of(cargo));
+        when(trabalhadorRepository.findById(1L)).thenReturn(Optional.of(trabalhador));
+
+        mockMvc.perform(delete("/trabalhador/{idTrabalhador}/{idCargo}", 1L, 1L))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(new DadosListagemTrabalhadorDTO(trabalhador))));
+    }
+
+    @Test
+    void deleteCargoNaoPossuiTrabalhadorExceptionTeste() throws Exception {
+        when(cargoRepository.findById(1L)).thenReturn(Optional.of(cargo));
+        when(trabalhadorRepository.findById(1L)).thenReturn(Optional.of(new Trabalhador(2L, "Nome Diferente", "12354536")));
+
+        mockMvc.perform(delete("/trabalhador/{idTrabalhador}/{idCargo}", 1L, 1L))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void deleteNotFoundCargoTeste() throws Exception {
+        when(cargoRepository.findById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete("/trabalhador/{idTrabalhador}/{idCargo}", 1L, 1L))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void deleteNotFoundTrabalhadorTeste() throws Exception {
+        when(trabalhadorRepository.findById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete("/trabalhador/{idTrabalhador}/{idCargo}", 1L, 1L))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
 }

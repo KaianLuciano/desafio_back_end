@@ -32,4 +32,9 @@ public class TratamentoDeExcecoes {
     public ResponseEntity<String> setorNaoPossuiCargo() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cargo correspondente ao idCargo, não existe no setor que representa idSetor");
     }
+
+    @ExceptionHandler(CargoNaoPossuiTrabalhadorException.class)
+    public ResponseEntity<String> cargoNaoPossuiTrabalhador() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trabalhador correspondente ao idTrabalhador, não existe no cargo que representa idCargo");
+    }
 }

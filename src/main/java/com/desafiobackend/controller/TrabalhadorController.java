@@ -44,4 +44,10 @@ public class TrabalhadorController {
         return ResponseEntity.ok().body(trabalhadorService.update(idTrabalhador, dadosAtualizaTrabalhadorDTO));
     }
 
+    @Operation(summary = "Deleta o trabalhador que representa o ID fornecido")
+    @DeleteMapping("/{idTrabalhador}/{idCargo}")
+    public ResponseEntity<DadosListagemTrabalhadorDTO> delete(@PathVariable(value = "idTrabalhador") Long idTrabalhador, @PathVariable(value = "idCargo") Long idCargo) {
+        return ResponseEntity.ok().body(trabalhadorService.delete(idTrabalhador, idCargo));
+    }
+
  }

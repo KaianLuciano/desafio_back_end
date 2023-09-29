@@ -1,7 +1,9 @@
 package com.desafiobackend.service;
 
+import com.desafiobackend.exception.CargoNaoPossuiTrabalhadorException;
 import com.desafiobackend.exception.CpfDuplicadoException;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
+import com.desafiobackend.exception.SetorNaoPossuiCargoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Trabalhador;
 import com.desafiobackend.model.dto.trabalhador.DadosAtualizaTrabalhadorDTO;
@@ -51,5 +53,20 @@ public class TrabalhadorService {
         Trabalhador trabalhador = trabalhadorRepository.findById(idTrabalhador).orElseThrow(() -> new DadoNaoEncontradoException("Trabalhador com o ID " + idTrabalhador + " não existente"));
         Trabalhador trabalhadorSalvo = trabalhadorRepository.save(new Trabalhador(trabalhador, dadosAtualizaTrabalhador));
         return new DadosListagemTrabalhadorDTO(trabalhadorSalvo);
+    }
+
+    public DadosListagemTrabalhadorDTO delete(Long idTrabalhador, Long idCargo) {
+        Trabalhador trabalhador = trabalhadorRepository.findById(idTrabalhador).orElseThrow(() -> new DadoNaoEncontradoException("Trabalhador com o ID " + idTrabalhador + " não existente"));
+        Cargo cargo = cargoRepository.findById(idCargo).orElseThrow(() -> new DadoNaoEncontradoException("Cargo com o ID " + idCargo + " não existente"));
+
+        if (!cargo.getTrabalhador().equals(trabalhador)) {
+            throw new CargoNaoPossuiTrabalhadorException();
+        }
+
+        cargo.setTrabalhador(null);
+        cargoRepository.save(cargo);
+        trabalhadorRepository.delete(trabalhador);
+
+        return new DadosListagemTrabalhadorDTO(trabalhador);
     }
 }

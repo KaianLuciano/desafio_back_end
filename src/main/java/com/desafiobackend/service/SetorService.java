@@ -5,17 +5,14 @@ import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.exception.SetorDuplicadoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Setor;
-import com.desafiobackend.model.dto.cargo.DadosListagemSetorCargoDTO;
 import com.desafiobackend.model.dto.setor.DadosAtualizaSetorDTO;
 import com.desafiobackend.model.dto.setor.DadosCadastraSetorDTO;
-import com.desafiobackend.model.dto.cargo.DadosCadastroCargoDTO;
 import com.desafiobackend.model.dto.setor.DadosListagemSetorDTO;
 import com.desafiobackend.repository.CargoRepository;
 import com.desafiobackend.repository.SetorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

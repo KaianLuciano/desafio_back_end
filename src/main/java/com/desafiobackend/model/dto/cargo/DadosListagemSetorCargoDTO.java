@@ -1,7 +1,6 @@
 package com.desafiobackend.model.dto.cargo;
 
 import com.desafiobackend.model.Cargo;
-import com.desafiobackend.model.dto.setor.DadosListagemTrabalhadorSetorDTO;
 import lombok.Getter;
 import lombok.Setter;
 

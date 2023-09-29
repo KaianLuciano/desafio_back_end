@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrabalhadorRepository extends JpaRepository<Trabalhador, Long> {
+    boolean existsByCpf(String cpg);
 }

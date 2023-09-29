@@ -3,7 +3,6 @@ package com.desafiobackend.model;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.model.dto.cargo.DadosAtualizaCargoDTO;
 import com.desafiobackend.model.dto.cargo.DadosCadastroCargoDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +37,7 @@ public class Cargo {
         this.nomeCargo = cargo.getNomeCargo();
     }
 
-    public Cargo(Cargo cargo, DadosAtualizaCargoDTO dadosCadastroCargoDTO) {
-        this.nomeCargo = cargo.getNomeCargo();
+    public Cargo(Cargo cargo, DadosAtualizaCargoDTO dadosAtualizaCargoDTO) {
+        this.nomeCargo = dadosAtualizaCargoDTO.getNomeCargo() != null ? dadosAtualizaCargoDTO.getNomeCargo() : cargo.getNomeCargo();
     }
 }

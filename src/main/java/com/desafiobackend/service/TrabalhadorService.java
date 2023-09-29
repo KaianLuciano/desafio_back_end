@@ -1,9 +1,9 @@
 package com.desafiobackend.service;
 
+import com.desafiobackend.exception.CpfDuplicadoException;
 import com.desafiobackend.exception.DadoNaoEncontradoException;
 import com.desafiobackend.model.Cargo;
 import com.desafiobackend.model.Trabalhador;
-import com.desafiobackend.model.dto.setor.DadosListagemSetorDTO;
 import com.desafiobackend.model.dto.trabalhador.DadosAtualizaTrabalhadorDTO;
 import com.desafiobackend.model.dto.trabalhador.DadosCadastroTrabalhadorDTO;
 import com.desafiobackend.model.dto.trabalhador.DadosListagemTrabalhadorDTO;
@@ -35,16 +35,18 @@ public class TrabalhadorService {
     }
 
     public DadosListagemTrabalhadorDTO save(Long idCargo, DadosCadastroTrabalhadorDTO dadosCadastroTrabalhador) {
+        if(trabalhadorRepository.existsByCpf(dadosCadastroTrabalhador.getCpf())){throw new CpfDuplicadoException();}
         Cargo cargo = cargoRepository.findById(idCargo).orElseThrow(() -> new DadoNaoEncontradoException("Cargo com o ID " + idCargo + " não existente"));
 
         Trabalhador trabalhador = new Trabalhador(dadosCadastroTrabalhador);
+
         trabalhador.setCargo(cargo);
         Trabalhador trabalhadorSalvo = trabalhadorRepository.save(trabalhador);
 
         cargo.setTrabalhador(trabalhador);
         cargoRepository.save(cargo);
 
-        return new DadosListagemTrabalhadorDTO(trabalhador);
+        return new DadosListagemTrabalhadorDTO(trabalhadorSalvo);
     }
 
     public DadosListagemTrabalhadorDTO update(Long idTrabalhador, DadosAtualizaTrabalhadorDTO dadosAtualizaTrabalhador) {

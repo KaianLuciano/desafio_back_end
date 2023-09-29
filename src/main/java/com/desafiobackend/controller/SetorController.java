@@ -1,11 +1,11 @@
 package com.desafiobackend.controller;
 
-import com.desafiobackend.model.Setor;
 import com.desafiobackend.model.dto.setor.DadosAtualizaSetorDTO;
 import com.desafiobackend.model.dto.setor.DadosCadastraSetorDTO;
 import com.desafiobackend.model.dto.setor.DadosListagemSetorDTO;
 import com.desafiobackend.service.SetorService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/setor")
 @AllArgsConstructor
+@Tag(name = "Setor")
 public class SetorController {
 
     private final SetorService setorService;

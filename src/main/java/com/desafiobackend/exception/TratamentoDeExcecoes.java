@@ -10,7 +10,7 @@ public class TratamentoDeExcecoes {
 
     @ExceptionHandler(SetorDuplicadoException.class)
     public ResponseEntity<String> setorComNomeDuplicado() {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do setor fornecido duplicado");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do setor fornecido duplicado já existe na base de dados");
     }
 
     @ExceptionHandler(DadoNaoEncontradoException.class)
@@ -19,7 +19,12 @@ public class TratamentoDeExcecoes {
     }
 
     @ExceptionHandler(CargoDuplicadoException.class)
-    public ResponseEntity<String> dadoNaoEncontrado() {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do cargo fornecido duplicado");
+    public ResponseEntity<String> cargoDuplicado() {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome do cargo fornecido já existe na base de dados");
+    }
+
+    @ExceptionHandler(CpfDuplicadoException.class)
+    public ResponseEntity<String> cpfDuplicado() {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Cpf fornecido já existe na base de dados");
     }
 }

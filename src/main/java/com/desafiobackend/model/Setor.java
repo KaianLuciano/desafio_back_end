@@ -35,4 +35,9 @@ public class Setor {
     public Setor(DadosCadastraSetorDTO dadosAtualizaSetorDTO) {
         this.nomeSetor = dadosAtualizaSetorDTO.getNomeSetor();
     }
+
+    public Setor(long idSetor, String nomeSetor) {
+        this.id = idSetor;
+        this.nomeSetor = nomeSetor;
+    }
 }

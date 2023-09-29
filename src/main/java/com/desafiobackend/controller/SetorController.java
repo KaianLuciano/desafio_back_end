@@ -45,7 +45,7 @@ public class SetorController {
     }
 
     @Operation(summary = "Deleta o setor que representa o ID fornecido")
-    @DeleteMapping("/{idSetor}/{idCargo}")
+    @DeleteMapping("/{idSetor}")
     public ResponseEntity<DadosListagemSetorDTO> delete(@PathVariable(value = "idSetor") Long idSetor) {
         return ResponseEntity.ok().body(setorService.delete(idSetor));
     }

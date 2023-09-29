@@ -15,7 +15,7 @@ public class TratamentoDeExcecoes {
 
     @ExceptionHandler(DadoNaoEncontradoException.class)
     public ResponseEntity<String> dadoNaoEncontrado(DadoNaoEncontradoException exception) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMsg());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMsg());
     }
 
     @ExceptionHandler(CargoDuplicadoException.class)

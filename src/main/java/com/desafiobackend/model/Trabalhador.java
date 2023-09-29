@@ -36,4 +36,10 @@ public class Trabalhador {
         this.nome = dadosAtualizaTrabalhador.getNome() != null ? dadosAtualizaTrabalhador.getNome() : trabalhador.nome;
         this.cpf = dadosAtualizaTrabalhador.getCpf() != null ? dadosAtualizaTrabalhador.getCpf() : trabalhador.getCpf();
     }
+
+    public Trabalhador(long idTrabalhador, String nomeTrabalhador, String cpf) {
+        this.id = idTrabalhador;
+        this.nome = nomeTrabalhador;
+        this.cpf = cpf;
+    }
 }

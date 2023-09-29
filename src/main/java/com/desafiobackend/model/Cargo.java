@@ -43,4 +43,9 @@ public class Cargo {
         this.setor = cargo.getSetor();
         this.trabalhador = cargo.getTrabalhador();
     }
+
+    public Cargo(long idCargo, String nomeCargo) {
+        this.id = idCargo;
+        this.nomeCargo = nomeCargo;
+    }
 }
